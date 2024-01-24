@@ -1,16 +1,31 @@
-# This is a sample Python script.
+import networkx as nx
+import matplotlib.pyplot as plt
+import xlrd
+import os
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+file = os.path.expanduser("~/Downloads/snmetric_matrix_NW_group2.xls")
 
+G = nx.Graph()
+names = []
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+book = xlrd.open_workbook(file)
+sheet = book.sheet_by_index(0)
 
+for row in range(sheet.nrows):
+    data = sheet.row_slice(row)
+    studyid = data[0].value
+    node1 = data[1].value
+    names.append((studyid, node1))
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+G.add_edges_from(names)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# Specify layout
+pos = nx.kamada_kawai_layout(G)
+
+# Adjust figure size
+plt.figure(figsize=(10, 8))
+
+# Draw the graph
+nx.draw(G, pos, with_labels=True, font_size=8, node_size=100, node_color="skyblue", edge_color="gray", font_color="black")
+
+plt.show()
