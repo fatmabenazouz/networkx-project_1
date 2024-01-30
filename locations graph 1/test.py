@@ -15,6 +15,7 @@ for row in range(sheet.nrows):
     data = sheet.row_slice(row)
     studyid = data[0].value
     node1 = data[1].value
+    node3 = data[2].value
     names.append((studyid, node1))
 
 G.add_edges_from(names)
