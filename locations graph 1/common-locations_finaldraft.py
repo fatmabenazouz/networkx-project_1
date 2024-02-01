@@ -15,7 +15,7 @@ G.add_edges_from(edges)
 
 # Draw the graph
 pos = nx.spring_layout(G, k=0.50, iterations=50)
-color_map = ['firebrick' for node in G.nodes()]
+color_map = ['skyblue' for node in G.nodes()]
 nx.draw(G, pos, with_labels=True, node_color=color_map, node_size=340, font_color='black', font_size='9', font_weight='bold', edge_color='gray')
 
 # Show the graph
