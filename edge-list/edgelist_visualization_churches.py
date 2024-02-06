@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Read data from Excel file
-excel_file = "~/Downloads/updated-bar_edgelist_31jan2024.xlsx"
+excel_file = "~/Downloads/updated-church_edgelist_02feb2024.xlsx"
 df = pd.read_excel(excel_file)
 
 # replacing "nan" values in Node 2 column with an empty string
@@ -16,7 +16,7 @@ G = nx.Graph()
 for index, row in df.iterrows():
     node1 = row['Node 1']
     node2 = row['Node 2']
-    bar = row['Bar']
+    church = row['Church']
     weight = row['Edge'] if not pd.isna(row['Edge']) else None  # setting weight to None if Edge is NaN
 
     G.add_node(node1)  # add the node even if it doesn't connect to any other node
@@ -29,6 +29,6 @@ for index, row in df.iterrows():
 pos = nx.spring_layout(G, k=0.50, iterations=10)
 
 # drawing the graph
-nx.draw(G, pos, with_labels=False, font_weight='bold', node_size=200, node_color='skyblue', font_size=8)
+nx.draw(G, pos, with_labels=False, font_weight='bold', node_size=200, node_color='lightgreen', font_size=8)
 
 plt.show()
