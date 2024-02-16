@@ -7,18 +7,18 @@ df = pd.read_excel(file_path)
 # creating a dictionary to store the edge list
 edge_list = {'Node 1': [], 'Node 2': [], 'Location': [], 'Edge': []}
 
-# unique Study IDs
+# unique study IDs
 for study_id in df['studyid'].unique():
-    # Add a row for the current Study ID with a placeholder location
+    # adding a row for the current study ID
     edge_list['Node 1'].append(study_id)
     edge_list['Node 2'].append(None)
     edge_list['Location'].append(df[df['studyid'] == study_id]['location'].iloc[0])
     edge_list['Edge'].append(None)
 
-    # unique locations for the current Study ID
+    # unique locations for the current study ID
     locations = df[df['studyid'] == study_id]['location'].unique()
 
-    # pairs of Study IDs for the current locations
+    # pairs of study IDs for the current locations
     for location in locations:
         other_study_ids = df[(df['location'] == location) & (df['studyid'] != study_id)]['studyid'].tolist()
 
@@ -33,12 +33,12 @@ for study_id in df['studyid'].unique():
 edge_list_df = pd.DataFrame(edge_list)
 edge_list_df['Edge'] = edge_list_df.groupby(['Location'])['Edge'].transform(lambda x: x.rank())
 
-# reorder columns
+# reordering columns
 edge_list_df = edge_list_df[['Node 1', 'Node 2', 'Location', 'Edge']]
 
 pd.set_option('display.max_rows', None)
 
-# display dataframe
+# displaying dataframe
 print(edge_list_df)
 
 # saving the dataframe to an Excel file
